@@ -53,19 +53,29 @@ exports.postABlog = async (req,res)=>{
 }
 
 exports.getById = async (req,res)=>{
-    blogs.findById(req.params.id)
-    .then(resdata=>{
+    try{
+
+        const raw = await getAsync(req.params.id);
+        const blogs = await JSON.parse(raw);
         res.status(200).json({
             succcess : true,
             message : 'Data fetch successfully',
-            data : resdata
+            blogs : blogs
         })
-    })
-    .catch(err=>{
+
+    }catch(err){
         console.log(err);
         res.status(500).json({
             succcess : false,
             message : 'Error fetching data from server'
         })
+    }
+    blogs.findById(req.params.id)
+    .then(resdata=>{
+        
+    })
+    .catch(err=>{
+        console.log(err);
+        
     })
 }
