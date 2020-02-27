@@ -47,3 +47,21 @@ exports.postABlog = async (req,res)=>{
         })
     }
 }
+
+exports.getById = async (req,res)=>{
+    blogs.findById(req.params.id)
+    .then(resdata=>{
+        res.status(200).json({
+            succcess : true,
+            message : 'Data fetch successfully',
+            data : resdata
+        })
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+            succcess : false,
+            message : 'Error fetching data from server'
+        })
+    })
+}
