@@ -1,23 +1,27 @@
 const blogs = require('../modals/blogs');
+const redis = require('redis');
+const {promisify} = require('util');
+const client = redis.createClient();
+const getAsync = promisify(client.get).bind(client);
 
 exports.getAllBlogs = async (req,res)=>{
-    blogs.find({}).select('_id title date data').sort({
-        date : -1
-    }).exec()
-    .then(blogs=>{
-        res.status(200).json({
-            blogs : blogs,
-            succcess : true,
-            message : "Data Find Successfully",
-            length : blogs.length
-        })
-    }).catch(err=>{
-        console.log(err)
-        res.status(500).json({
-            message : "Error while getting data to server",
-            succcess : false
-        })
+    try{
+    const rawData = await getAsync('blogs');
+    const blogs = await JSON.parse(rawData);
+    res.status(200).json({
+        blogs : blogs,
+        succcess : true,
+        message : "Data Find Successfully",
+        length : blogs.length
     })
+    }catch(err){
+        console.log(err);
+        res.status(500).json({
+            succcess : false,
+            message : "An unexcpected error occurred",
+        })
+    }
+    
 }
 
 
