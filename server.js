@@ -24,7 +24,7 @@ db.on('error',(err)=>{
 })
 
 
-//middle wars 
+//middle vars 
 app.use(cors());
 
 app.use(express.json());

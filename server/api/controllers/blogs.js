@@ -70,12 +70,21 @@ exports.getById = async (req,res)=>{
             message : 'Error fetching data from server'
         })
     }
-    blogs.findById(req.params.id)
-    .then(resdata=>{
-        
-    })
-    .catch(err=>{
-        console.log(err);
-        
-    })
 }
+
+exports.delete = async(req,res)=>{
+    try{
+        const deleted = await blogs.findByIdAndDelete(req.params.id);
+        res.status(200).json({
+            succcess : true,
+            message : "Deleted Successfully"
+        })
+    }catch(err){
+        console.log(err);
+        res.status(500).json({
+            succcess : false,
+            message : "Error while connecting to server this has been notified to the delevloper"
+        })
+    }
+}
+
