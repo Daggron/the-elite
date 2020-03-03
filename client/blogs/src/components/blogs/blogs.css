@@ -1,0 +1,17 @@
+.blogs-container{
+    width: 70vw;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.blog{
+    width: 100%;
+    text-align: left;
+    padding: 20px 0;
+}
+.heading{
+    margin: 5px;
+}
+

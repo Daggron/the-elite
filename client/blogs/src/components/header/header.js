@@ -1,7 +1,15 @@
 import React from 'react'
 import './header.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { Toggle_Theme } from '../../redux/actions';
 
 export default function Header() {
+    const dispatch = useDispatch();
+    const theme = useSelector(state=>state.theme)
+
+    const toggleTheme = ()=>{
+        dispatch(Toggle_Theme())
+    }
     return (
         <div className="Header">
             <div className="header-bar-title">
@@ -13,7 +21,7 @@ export default function Header() {
                 </p>
             </div>
             <div className="button">
-                <input type="checkbox" defaultChecked={false} />
+                <input type="checkbox" onChange={toggleTheme} checked={theme==="dark"?true:false} />
             </div>
         </div>
     )
