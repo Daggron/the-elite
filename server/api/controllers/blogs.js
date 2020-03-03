@@ -30,6 +30,7 @@ exports.postABlog = async (req,res)=>{
         const blog = new blogs();
         blog.title = req.body.title;
         blog.data = req.body.data;
+        blog.tagLine = req.body.tagLine;
         let date = new Date();
         blog.date = date.toUTCString();
         blog.save().then(()=>{

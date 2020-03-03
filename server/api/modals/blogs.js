@@ -13,6 +13,9 @@ const blogSchema = new mongoose.Schema({
         type : String,
         required : true,
         default : Date.UTC()
+    },
+    tagLine : {
+        type : String
     }
 },{
     timestamps : true
